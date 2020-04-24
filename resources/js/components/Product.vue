@@ -1,86 +1,43 @@
 <template>
         <div>
-            <div id="searchModal" class="modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                            <div class="form-group row">
-                                <label for="streetAddress" class="col-md-3 col-form-label">Street Address</label>
-                                <div class=" col-md-7">
-                                    <input id="streetAddress" type="text" class="form-control" v-model="this.$parent.streetAddress" name="streetAddress" required autocomplete="streetAddress" autofocus>
-                                </div>
-                                <div class="col-md-2">
-                                    <button class="btn btn-primary" v-on:click="search">Search</button>
-                                </div>
-                            </div>
-                            <div id="mapContainer">
 
-                             </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                    </div>
-                </div>
-            </div>
 
             <hr>
-            <h3>Studio Information</h3>
+            <h3>Add New Product</h3>
             <hr>
             <div class="form-group row">
-                <label for="studioName" class="col-md-3 col-form-label">Studio Name</label>
+                <label for="productName" class="col-md-3 col-form-label">Product Name</label>
                 <div class="col-md-9">
-                    <input id="studioName" type="text" class="form-control" v-model="this.$parent.studioName" name="studioName" required autocomplete="studioName" autofocus>
+                    <input id="productName" type="text" class="form-control" v-model="this.$parent.productName" name="productName" required autocomplete="productName" autofocus>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="productSlug" class="col-md-3 col-form-label">Slug</label>
+                <div class="col-md-9">
+                    <input id="productSlug" type="text" class="form-control" v-model="this.$parent.productSlug" name="productSlug" required autocomplete="productSlug" autofocus>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="productDetails" class="col-md-3 col-form-label">Details</label>
+                <div class="col-md-9">
+                    <input id="productDetails" type="text" class="form-control" v-model="this.$parent.productDetails" name="productDetails" required autocomplete="productDetails" autofocus>
                 </div>
             </div>
             
             <div class="form-group row">
-                <label for="phone" class="col-md-3 col-form-label">Phone</label>
+                <label for="productDescription" class="col-md-3 col-form-label">Description</label>
                 <div class="col-md-9">
-                    <input name="phone" id="phone" type="tel" class="form-control" v-model="this.$parent.phone" required autocomplete="phone" autofocus>
+                      <textarea name="productDescription"></textarea>
                 </div>
             </div>
-
+         
             <div class="form-group row">
-                <label for="latitude" class="col-md-2 col-form-label">Latitude</label>
-                <div class=" col-md-2">
-                    <input id="latitude" type="text" class="form-control" v-model="this.$parent.latitude" name="latitude" required autocomplete="latitude" autofocus>
-                </div>
-                <label for="longitude" class="col-md-2 col-form-label">Longitude</label>
-                <div class=" col-md-2">
-                    <input id="longitude" type="text" class="form-control" v-model="this.$parent.longitude" name="longitude" required autocomplete="longitude" autofocus>
-                </div>
-                <div class="col-md-4">
-                    <button class="btn btn-primary" v-on:click="openSearchModal">Set Studio Location</button>
+                <label for="productPrice" class="col-md-3 col-form-label">Price</label>
+                <div class="col-md-9">
+                    <input  type="number" class="form-control" v-model="this.$parent.productPrice" name="productPrice[]" autocomplete="productPrice" autofocus placeholder="$50/HR">
                 </div>
             </div>
-
-            <hr>
-            <h3>Studio Description</h3>
-            <hr>
-            <textarea name="studioDescription"></textarea>
-            <hr>
-            <h3>Studio Services</h3>
-            <hr>
-                <div class="form-group row">
-                    
-                    <select v-model="selectedService" class="col-md-4 form-control ml-3" name="studioServices[]" autocomplete="studioServices" autofocus>
-                    <template v-for='(studioServiceDropdownItem, i) in this.studioServiceDropdown' >
-                                <option :key='i' :value="studioServiceDropdownItem.value">{{studioServiceDropdownItem.name}}</option>
-                        </template>
-
-                    </select>
-                    <div class="col-md-2">
-                        <input  type="text" class="form-control" v-model="this.$parent.studioServicePrice" name="studioServicePrice[]" autocomplete="studioServicePrice" autofocus placeholder="$50/HR">
-                    </div>
-                </div>
+             
             <button class="btn btn-primary float-right" type="submit" v-on:click='submit()'>Save</button>
 
         </div>
@@ -108,7 +65,7 @@
             }
         },
         mounted() {
-                    CKEDITOR.replace('studioDescription');
+                    CKEDITOR.replace('productDescription');
         },
         methods: {
             submit() {
@@ -131,7 +88,7 @@
                             postal_code : $('input[name="postal_code"]').val(), 
                             territory : $('input[name="territory"]').val(), 
                             country : $('input[name="countryy"]').val(), 
-                            description : CKEDITOR.instances.studioDescription.getData(), 
+                            description : CKEDITOR.instances.productDescription.getData(), 
 
                         }
                     }).then((response) => {

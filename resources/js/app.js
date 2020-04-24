@@ -25,7 +25,8 @@ Vue.use(VueRouter)
 import App from './components/App'
 import Profile from './components/Profile'
 import Admin from './components/Admin'
-import Studio from './components/Studio'
+import Products from './components/Products'
+import Product from './components/Product'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -36,7 +37,8 @@ import Studio from './components/Studio'
 const routes = [
     { path: '/', component: Profile },
     { path: '/users', component: Admin, meta: { requiresAuth: true, adminAuth: true} },
-    { path: '/studio', component: Studio, meta: { requiresAuth: true, producerAuth: true} },
+    { path: '/products', component: Products, meta: { requiresAuth: true, producerAuth: true}},
+    { path: '/product', component: Product}
   ]
   
 const router = new VueRouter({

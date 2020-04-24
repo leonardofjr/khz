@@ -19,8 +19,7 @@
                                     <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
                                 <li><router-link to="/" exact>Profile</router-link></li>
                                 <li v-if="role == 'admin'"><router-link to="/users" exact>Users</router-link></li>
-                                <li v-if="role == 'producer'"><router-link to="/studio" exact>Studio</router-link></li>
-
+                                <li v-if="role == 'producer'"><router-link to="/products" exact>Products</router-link></li>
                             </ul>
                         </nav>
                     </aside>
