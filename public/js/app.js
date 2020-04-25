@@ -2055,8 +2055,39 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2105,139 +2136,46 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      selectedService: "",
-      studioDescription: '',
-      studioServiceDropdown: [{
-        name: '--Select Service--',
-        value: ''
-      }, {
-        name: 'Recording',
-        value: 'recording'
-      }, {
-        name: 'Mixing',
-        value: 'mixing'
-      }, {
-        name: 'Recording & Mixing',
-        value: 'recording_mixing'
-      }, {
-        name: 'Mixing & Mastering',
-        value: 'mixing_mastering'
-      }, {
-        name: 'Video & Editing',
-        value: 'video_editing'
-      }],
-      lat: '',
-      lon: '',
-      promise: undefined,
+      product_cats: undefined,
       _token: this._token = $('meta[name="csrf-token"').attr('content')
     };
   },
   mounted: function mounted() {
+    var _this = this;
+
     CKEDITOR.replace('productDescription');
+    axios({
+      method: 'get',
+      url: '/user_cpanel/product/cats'
+    }).then(function (response) {
+      _this.product_cats = response.data;
+    });
   },
   methods: {
     submit: function submit() {
-      var _data;
-
-      this.setData();
       axios({
         method: 'post',
-        url: '/user_cpanel/studio',
+        url: '/user_cpanel/product/store',
         headers: {
           'X-CSRF': this._token
         },
-        data: (_data = {
-          name: $('input[name="studioName"]').val(),
-          phone: $('input[name="phone"]').val()
-        }, _defineProperty(_data, "phone", $('input[name="phone"]').val()), _defineProperty(_data, "street_address", $('input[name="streetAddress"]').val()), _defineProperty(_data, "city", $('input[name="city"]').val()), _defineProperty(_data, "postal_code", $('input[name="postal_code"]').val()), _defineProperty(_data, "territory", $('input[name="territory"]').val()), _defineProperty(_data, "country", $('input[name="countryy"]').val()), _defineProperty(_data, "description", CKEDITOR.instances.productDescription.getData()), _data)
+        data: {
+          name: $('input[name="productName"]').val(),
+          slug: $('input[name="productSlug"]').val(),
+          sku: $('input[name="productSku"]').val(),
+          stockStatus: $('select[name="productStockStatus"]').val(),
+          details: $('input[name="productDetails"]').val(),
+          cats: $('input[name="cats[]"]:checked').each(function () {
+            return $(this).val()._value;
+          }),
+          tags: $('input[name="tags"]').val(),
+          price: $('input[name="productPrice"]').val(),
+          featured: $('input[name="featured"]').val(),
+          description: CKEDITOR.instances.productDescription.getData()
+        }
       }).then(function (response) {
         console.log(response);
       });
-    },
-    setData: function setData() {},
-    openSearchModal: function openSearchModal() {
-      $('#searchModal').modal('show');
-    },
-    search: function search() {
-      var query = $('input[name="streetAddress"]').val();
-      console.log(query);
-      var params = 'format=json&addressdetails=1&limit=1&polygon_svg=1';
-      var osmUrl = 'https://nominatim.openstreetmap.org/search/' + query + '?' + params;
-      this.promise = axios.get(osmUrl).then(function (response) {
-        console.log(response);
-        $('input[name="city"]').val(response.data[0].address.city);
-        $('input[name="territory"]').val(response.data[0].address.state);
-        $('input[name="country"]').val(response.data[0].address.country);
-        return response.data[0];
-      });
-      this.destroyMapElement();
-      this.createMapElement();
-      this.renderMap();
-    },
-    renderMap: function renderMap() {
-      var _this = this;
-
-      this.promise.then(function (data) {
-        _this.mymap = L.map('mapid').setView([data.lat, data.lon], 13); // this.mymap.locate({setView: true, maxZoom: 16});
-
-        var attribution = '&copy; <a href="https:///openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-        var tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        var tiles = L.tileLayer(tileUrl, {
-          attribution: attribution
-        });
-        tiles.addTo(_this.mymap);
-
-        _this.createUserMarker();
-      });
-    },
-    createUserMarker: function createUserMarker() {
-      var _this2 = this;
-
-      this.promise.then(function (data) {
-        var LeafIcon = L.Icon.extend({
-          options: {
-            //   shadowUrl: 'leaf-shadow.png',
-            iconSize: [50, 50],
-            // size of the icon
-            shadowSize: [50, 64],
-            // size of the shadow
-            iconAnchor: [25, 25],
-            // point of the icon which will correspond to marker's location
-            shadowAnchor: [4, 62],
-            // the same for the shadow
-            popupAnchor: [-0, -25] // point from which the popup should open relative to the iconAnchor
-
-          }
-        });
-        var greenIcon = new LeafIcon({
-          iconUrl: 'leaf-green.png'
-        }),
-            redIcon = new LeafIcon({
-          iconUrl: 'leaf-red.png'
-        }),
-            orangeIcon = new LeafIcon({
-          iconUrl: 'leaf-orange.png'
-        });
-        L.marker([data.lat, data.lon], {
-          icon: greenIcon,
-          draggable: true,
-          autoPan: true
-        }).addTo(_this2.mymap).bindPopup('<span class="font-weight-bold">' + _this2.name + '</span>' + '<br>Come Chill');
-      });
-    },
-    createMapElement: function createMapElement() {
-      $('#mapContainer').append('<div id="mapid"></div>');
-    },
-    destroyMapElement: function destroyMapElement() {
-      $('#mapid').remove();
-    },
-    getCurrentUserLocation: function getCurrentUserLocation() {
-      if (navigator.geolocation) {
-        // Utilizing HTML Geolocation API to locate user's position
-        return navigator.geolocation.getCurrentPosition(this.updateUserPosition);
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
     }
   }
 });
@@ -2253,8 +2191,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2275,139 +2230,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      selectedService: "",
-      studioDescription: '',
-      studioServiceDropdown: [{
-        name: '--Select Service--',
-        value: ''
-      }, {
-        name: 'Recording',
-        value: 'recording'
-      }, {
-        name: 'Mixing',
-        value: 'mixing'
-      }, {
-        name: 'Recording & Mixing',
-        value: 'recording_mixing'
-      }, {
-        name: 'Mixing & Mastering',
-        value: 'mixing_mastering'
-      }, {
-        name: 'Video & Editing',
-        value: 'video_editing'
-      }],
-      lat: '',
-      lon: '',
-      promise: undefined,
+      products: undefined,
       _token: this._token = $('meta[name="csrf-token"').attr('content')
     };
   },
   mounted: function mounted() {
-    CKEDITOR.replace('studioDescription');
+    this.getProducts();
   },
   methods: {
-    submit: function submit() {
-      var _data;
-
-      this.setData();
-      axios({
-        method: 'post',
-        url: '/user_cpanel/studio',
-        headers: {
-          'X-CSRF': this._token
-        },
-        data: (_data = {
-          name: $('input[name="studioName"]').val(),
-          phone: $('input[name="phone"]').val()
-        }, _defineProperty(_data, "phone", $('input[name="phone"]').val()), _defineProperty(_data, "street_address", $('input[name="streetAddress"]').val()), _defineProperty(_data, "city", $('input[name="city"]').val()), _defineProperty(_data, "postal_code", $('input[name="postal_code"]').val()), _defineProperty(_data, "territory", $('input[name="territory"]').val()), _defineProperty(_data, "country", $('input[name="countryy"]').val()), _defineProperty(_data, "description", CKEDITOR.instances.studioDescription.getData()), _data)
-      }).then(function (response) {
-        console.log(response);
-      });
-    },
-    setData: function setData() {},
-    openSearchModal: function openSearchModal() {
-      $('#searchModal').modal('show');
-    },
-    search: function search() {
-      var query = $('input[name="streetAddress"]').val();
-      console.log(query);
-      var params = 'format=json&addressdetails=1&limit=1&polygon_svg=1';
-      var osmUrl = 'https://nominatim.openstreetmap.org/search/' + query + '?' + params;
-      this.promise = axios.get(osmUrl).then(function (response) {
-        console.log(response);
-        $('input[name="city"]').val(response.data[0].address.city);
-        $('input[name="territory"]').val(response.data[0].address.state);
-        $('input[name="country"]').val(response.data[0].address.country);
-        return response.data[0];
-      });
-      this.destroyMapElement();
-      this.createMapElement();
-      this.renderMap();
-    },
-    renderMap: function renderMap() {
+    getProducts: function getProducts() {
       var _this = this;
 
-      this.promise.then(function (data) {
-        _this.mymap = L.map('mapid').setView([data.lat, data.lon], 13); // this.mymap.locate({setView: true, maxZoom: 16});
-
-        var attribution = '&copy; <a href="https:///openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-        var tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-        var tiles = L.tileLayer(tileUrl, {
-          attribution: attribution
-        });
-        tiles.addTo(_this.mymap);
-
-        _this.createUserMarker();
+      axios({
+        method: 'get',
+        url: '/user_cpanel/product'
+      }).then(function (response) {
+        _this.products = response.data;
       });
-    },
-    createUserMarker: function createUserMarker() {
-      var _this2 = this;
-
-      this.promise.then(function (data) {
-        var LeafIcon = L.Icon.extend({
-          options: {
-            //   shadowUrl: 'leaf-shadow.png',
-            iconSize: [50, 50],
-            // size of the icon
-            shadowSize: [50, 64],
-            // size of the shadow
-            iconAnchor: [25, 25],
-            // point of the icon which will correspond to marker's location
-            shadowAnchor: [4, 62],
-            // the same for the shadow
-            popupAnchor: [-0, -25] // point from which the popup should open relative to the iconAnchor
-
-          }
-        });
-        var greenIcon = new LeafIcon({
-          iconUrl: 'leaf-green.png'
-        }),
-            redIcon = new LeafIcon({
-          iconUrl: 'leaf-red.png'
-        }),
-            orangeIcon = new LeafIcon({
-          iconUrl: 'leaf-orange.png'
-        });
-        L.marker([data.lat, data.lon], {
-          icon: greenIcon,
-          draggable: true,
-          autoPan: true
-        }).addTo(_this2.mymap).bindPopup('<span class="font-weight-bold">' + _this2.name + '</span>' + '<br>Come Chill');
-      });
-    },
-    createMapElement: function createMapElement() {
-      $('#mapContainer').append('<div id="mapid"></div>');
-    },
-    destroyMapElement: function destroyMapElement() {
-      $('#mapid').remove();
-    },
-    getCurrentUserLocation: function getCurrentUserLocation() {
-      if (navigator.geolocation) {
-        // Utilizing HTML Geolocation API to locate user's position
-        return navigator.geolocation.getCurrentPosition(this.updateUserPosition);
-      } else {
-        alert("Geolocation is not supported by this browser.");
-      }
     }
   }
 });
@@ -38534,6 +38373,85 @@ var render = function() {
         "label",
         {
           staticClass: "col-md-3 col-form-label",
+          attrs: { for: "productSku" }
+        },
+        [_vm._v("SKU")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.productSku,
+              expression: "this.$parent.productSku"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "productSku",
+            type: "text",
+            name: "productSku",
+            required: "",
+            autocomplete: "productSku",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.productSku },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(this.$parent, "productSku", $event.target.value)
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "form-group row" },
+      [
+        _c("label", { staticClass: "form-check-label col-md-3" }, [
+          _vm._v("\n            Categories\n        ")
+        ]),
+        _vm._v(" "),
+        _vm._l(this.product_cats, function(cat) {
+          return [
+            _c("div", { staticClass: "form-check" }, [
+              _c("input", {
+                staticClass: "form-check-input",
+                attrs: { type: "checkbox", name: "cats[]" },
+                domProps: { value: cat.name }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                { staticClass: "form-check-label", attrs: { for: cat.name } },
+                [
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(cat.name) +
+                      "\n                "
+                  )
+                ]
+              )
+            ])
+          ]
+        })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-3 col-form-label",
           attrs: { for: "productDetails" }
         },
         [_vm._v("Details")]
@@ -38571,7 +38489,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(0),
+    _vm._m(1),
     _vm._v(" "),
     _c("div", { staticClass: "form-group row" }, [
       _c(
@@ -38596,10 +38514,10 @@ var render = function() {
           staticClass: "form-control",
           attrs: {
             type: "number",
-            name: "productPrice[]",
+            name: "productPrice",
             autocomplete: "productPrice",
             autofocus: "",
-            placeholder: "$50/HR"
+            placeholder: "$50"
           },
           domProps: { value: this.$parent.productPrice },
           on: {
@@ -38614,6 +38532,8 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
     _c(
       "button",
       {
@@ -38625,11 +38545,49 @@ var render = function() {
           }
         }
       },
-      [_vm._v("Save")]
+      [_vm._v("Add")]
     )
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-3 col-form-label",
+          attrs: { for: "productStockStatus" }
+        },
+        [_vm._v("Stock Status")]
+      ),
+      _vm._v(" "),
+      _c(
+        "select",
+        {
+          staticClass: "form-control",
+          attrs: {
+            id: "productStockStatus",
+            name: "productStockStatus",
+            required: "",
+            autocomplete: "productStockStatus",
+            autofocus: ""
+          }
+        },
+        [
+          _c("option", { attrs: { selected: "" } }, [_vm._v("Choose...")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "in_stock" } }, [_vm._v("In Stock")]),
+          _vm._v(" "),
+          _c("option", { attrs: { value: "out_of_stock" } }, [
+            _vm._v("Out of Stock")
+          ])
+        ]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -38647,6 +38605,26 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-md-9" }, [
         _c("textarea", { attrs: { name: "productDescription" } })
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "custom-control custom-switch" }, [
+      _c("input", {
+        staticClass: "custom-control-input",
+        attrs: { type: "checkbox", id: "customSwitch1", name: "featured" }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        {
+          staticClass: "custom-control-label",
+          attrs: { for: "customSwitch1" }
+        },
+        [_vm._v("Featured")]
+      )
     ])
   }
 ]
@@ -38683,52 +38661,65 @@ var render = function() {
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-3 col-form-label",
-            attrs: { for: "studioName" }
-          },
-          [_vm._v("Studio Name")]
-        ),
+      _c("table", { staticClass: "table" }, [
+        _vm._m(0),
         _vm._v(" "),
-        _c("div", { staticClass: "col-md-9" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: this.$parent.studioName,
-                expression: "this.$parent.studioName"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              id: "studioName",
-              type: "text",
-              name: "studioName",
-              required: "",
-              autocomplete: "studioName",
-              autofocus: ""
-            },
-            domProps: { value: this.$parent.studioName },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(this.$parent, "studioName", $event.target.value)
-              }
-            }
-          })
-        ])
+        _c(
+          "tbody",
+          [
+            _vm._l(this.products, function(product) {
+              return [
+                _c("tr", [
+                  _c("th", { attrs: { scope: "row" } }, [
+                    _vm._v(_vm._s(product.id))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.sku))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.stock_status))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.price))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.categories))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(product.tags))])
+                ])
+              ]
+            })
+          ],
+          2
+        )
       ])
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("SKU")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Stock")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Price")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Categories")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Tags")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

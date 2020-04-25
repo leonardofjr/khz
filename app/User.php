@@ -53,6 +53,10 @@ class User extends Authenticatable
             return $this->belongsToMany('App\Role', 'role_user');
         }
 
+        public function products() {
+            return $this->belongsToMany('App\Product', 'product_user');
+        }
+
 
         public function testDatabase()
         {

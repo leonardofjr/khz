@@ -24,3 +24,6 @@ Route::get('/user_geopoint/{id}', 'UserGeopointController@show');
 Route::post('/user_geopoint/{id}', 'UserGeopointController@update');
 
 Route::post('/user_cpanel/studio', 'Backend\UserControlPanelController@store');
+Route::get('/user_cpanel/product', 'Backend\ProductController@index');
+Route::post('/user_cpanel/product/store', 'Backend\ProductController@store');
+Route::get('/user_cpanel/product/cats', 'Backend\ProductController@cats');
