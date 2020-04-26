@@ -61,7 +61,6 @@ class User extends Authenticatable
             return $this->hasOne('App\Address', 'user_id');
         }
 
-
         public function testDatabase()
         {
 

@@ -2029,6 +2029,18 @@ __webpack_require__.r(__webpack_exports__);
       province: '',
       postal_code: '',
       country: '',
+      shipment_address1: '',
+      shipment_address2: '',
+      shipment_city: '',
+      shipment_province: '',
+      shipment_postal_code: '',
+      shipment_country: '',
+      billing_address1: '',
+      billing_address2: '',
+      billing_city: '',
+      billing_province: '',
+      billing_postal_code: '',
+      billing_country: '',
       role: ''
     };
   },
@@ -2053,6 +2065,18 @@ __webpack_require__.r(__webpack_exports__);
         _this.province = response.data.address.province;
         _this.postal_code = response.data.address.postal_code;
         _this.country = response.data.address.country;
+        _this.shipment_address1 = response.data.address.shipment_address.address_1;
+        _this.shipment_address2 = response.data.address.shipment_address.address_2;
+        _this.shipment_city = response.data.address.shipment_address.city;
+        _this.shipment_province = response.data.address.shipment_address.province;
+        _this.shipment_postal_code = response.data.address.shipment_address.postal_code;
+        _this.shipment_country = response.data.address.shipment_address.country;
+        _this.billing_address1 = response.data.address.billing_address.address_1;
+        _this.billing_address2 = response.data.address.billing_address.address_2;
+        _this.billing_city = response.data.address.billing_address.city;
+        _this.billing_province = response.data.address.billing_address.province;
+        _this.billing_postal_code = response.data.address.billing_address.postal_code;
+        _this.billing_country = response.data.address.billing_address.country;
         authUser.role = response.data.roles[0].name;
         authUser.authenticated = response.data.authenticated;
         window.localStorage.setItem('nsUser', JSON.stringify(authUser));
@@ -2135,6 +2159,40 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var domain__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! domain */ "./node_modules/domain-browser/source/index.js");
 /* harmony import */ var domain__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(domain__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2314,6 +2372,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2336,11 +2428,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var domain__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! domain */ "./node_modules/domain-browser/source/index.js");
 /* harmony import */ var domain__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(domain__WEBPACK_IMPORTED_MODULE_0__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2518,7 +2605,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -38715,8 +38801,8 @@ var render = function() {
     _c("div", { staticClass: "form-group row" }, [
       _c(
         "label",
-        { staticClass: "col-md-3 col-form-label", attrs: { for: "firstName" } },
-        [_vm._v("First Name")]
+        { staticClass: "col-md-3 col-form-label", attrs: { for: "address_1" } },
+        [_vm._v("Address 1")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-9" }, [
@@ -38725,26 +38811,242 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: this.$parent.firstName,
-              expression: "this.$parent.firstName"
+              value: this.$parent.$parent.billing_address1,
+              expression: "this.$parent.$parent.billing_address1"
             }
           ],
           staticClass: "form-control",
           attrs: {
-            id: "firstName",
+            id: "address_1",
             type: "text",
-            name: "firstName",
             required: "",
-            autocomplete: "firstName",
+            autocomplete: "address_1",
             autofocus: ""
           },
-          domProps: { value: this.$parent.firstName },
+          domProps: { value: this.$parent.$parent.billing_address1 },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(this.$parent, "firstName", $event.target.value)
+              _vm.$set(
+                this.$parent.$parent,
+                "billing_address1",
+                $event.target.value
+              )
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-md-3 col-form-label", attrs: { for: "address_1" } },
+        [_vm._v("Address 2")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.$parent.billing_address2,
+              expression: "this.$parent.$parent.billing_address2"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "address_1",
+            type: "text",
+            required: "",
+            autocomplete: "address_1",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.$parent.billing_address2 },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(
+                this.$parent.$parent,
+                "billing_address2",
+                $event.target.value
+              )
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-md-3 col-form-label", attrs: { for: "city" } },
+        [_vm._v("City")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.$parent.billing_city,
+              expression: "this.$parent.$parent.billing_city"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "city",
+            type: "text",
+            required: "",
+            autocomplete: "city",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.$parent.billing_city },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(
+                this.$parent.$parent,
+                "billing_city",
+                $event.target.value
+              )
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-md-3 col-form-label", attrs: { for: "province" } },
+        [_vm._v("Province")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.$parent.billing_province,
+              expression: "this.$parent.$parent.billing_province"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "province",
+            type: "text",
+            required: "",
+            autocomplete: "province",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.$parent.billing_province },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(
+                this.$parent.$parent,
+                "billing_province",
+                $event.target.value
+              )
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-3 col-form-label",
+          attrs: { for: "postal_code" }
+        },
+        [_vm._v("Postal Code")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.$parent.billing_postal_code,
+              expression: "this.$parent.$parent.billing_postal_code"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "postal_code",
+            type: "text",
+            required: "",
+            autocomplete: "postal_code",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.$parent.billing_postal_code },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(
+                this.$parent.$parent,
+                "billing_postal_code",
+                $event.target.value
+              )
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-md-3 col-form-label", attrs: { for: "country" } },
+        [_vm._v("Country")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.$parent.billing_country,
+              expression: "this.$parent.$parent.billing_country"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "country",
+            type: "text",
+            required: "",
+            autocomplete: "country",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.$parent.billing_country },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(
+                this.$parent.$parent,
+                "billing_country",
+                $event.target.value
+              )
             }
           }
         })
@@ -39260,8 +39562,8 @@ var render = function() {
     _c("div", { staticClass: "form-group row" }, [
       _c(
         "label",
-        { staticClass: "col-md-3 col-form-label", attrs: { for: "firstName" } },
-        [_vm._v("First Name")]
+        { staticClass: "col-md-3 col-form-label", attrs: { for: "address_1" } },
+        [_vm._v("Address 1")]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-9" }, [
@@ -39270,26 +39572,218 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: this.$parent.firstName,
-              expression: "this.$parent.firstName"
+              value: this.$parent.$parent.address1,
+              expression: "this.$parent.$parent.address1"
             }
           ],
           staticClass: "form-control",
           attrs: {
-            id: "firstName",
+            id: "address_1",
             type: "text",
-            name: "firstName",
             required: "",
-            autocomplete: "firstName",
+            autocomplete: "address_1",
             autofocus: ""
           },
-          domProps: { value: this.$parent.firstName },
+          domProps: { value: this.$parent.$parent.address1 },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(this.$parent, "firstName", $event.target.value)
+              _vm.$set(this.$parent.$parent, "address1", $event.target.value)
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-md-3 col-form-label", attrs: { for: "address_1" } },
+        [_vm._v("Address 2")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.$parent.address2,
+              expression: "this.$parent.$parent.address2"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "address_1",
+            type: "text",
+            required: "",
+            autocomplete: "address_1",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.$parent.address2 },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(this.$parent.$parent, "address2", $event.target.value)
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-md-3 col-form-label", attrs: { for: "city" } },
+        [_vm._v("City")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.$parent.city,
+              expression: "this.$parent.$parent.city"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "city",
+            type: "text",
+            required: "",
+            autocomplete: "city",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.$parent.city },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(this.$parent.$parent, "city", $event.target.value)
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-md-3 col-form-label", attrs: { for: "province" } },
+        [_vm._v("Province")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.$parent.province,
+              expression: "this.$parent.$parent.province"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "province",
+            type: "text",
+            required: "",
+            autocomplete: "province",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.$parent.province },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(this.$parent.$parent, "province", $event.target.value)
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        {
+          staticClass: "col-md-3 col-form-label",
+          attrs: { for: "postal_code" }
+        },
+        [_vm._v("Postal Code")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.$parent.postal_code,
+              expression: "this.$parent.$parent.postal_code"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "postal_code",
+            type: "text",
+            required: "",
+            autocomplete: "postal_code",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.$parent.postal_code },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(this.$parent.$parent, "postal_code", $event.target.value)
+            }
+          }
+        })
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "form-group row" }, [
+      _c(
+        "label",
+        { staticClass: "col-md-3 col-form-label", attrs: { for: "country" } },
+        [_vm._v("Country")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: this.$parent.$parent.country,
+              expression: "this.$parent.$parent.country"
+            }
+          ],
+          staticClass: "form-control",
+          attrs: {
+            id: "country",
+            type: "text",
+            required: "",
+            autocomplete: "country",
+            autofocus: ""
+          },
+          domProps: { value: this.$parent.$parent.country },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(this.$parent.$parent, "country", $event.target.value)
             }
           }
         })
@@ -39319,52 +39813,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("hr"),
-    _vm._v(" "),
-    _c("h3", [_vm._v("Store")]),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        { staticClass: "col-md-3 col-form-label", attrs: { for: "firstName" } },
-        [_vm._v("First Name")]
-      ),
+  return _c(
+    "div",
+    [
+      _c("hr"),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-9" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: this.$parent.firstName,
-              expression: "this.$parent.firstName"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: {
-            id: "firstName",
-            type: "text",
-            name: "firstName",
-            required: "",
-            autocomplete: "firstName",
-            autofocus: ""
-          },
-          domProps: { value: this.$parent.firstName },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(this.$parent, "firstName", $event.target.value)
-            }
-          }
-        })
-      ])
-    ])
-  ])
+      _c("h2", [_vm._v("Store")]),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("router-view")
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -39797,7 +40258,7 @@ var render = function() {
     [
       _c("hr"),
       _vm._v(" "),
-      _c("h2", { staticClass: "d-inline-block" }, [_vm._v("Products")]),
+      _c("h3", { staticClass: "d-inline-block" }, [_vm._v("Products")]),
       _c("router-link", { attrs: { to: "/product" } }, [
         _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Add New")])
       ]),
@@ -54934,7 +55395,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_account_subpages_Profile__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/account/subpages/Profile */ "./resources/js/components/account/subpages/Profile.vue");
 /* harmony import */ var _components_account_subpages_ShippingAddress__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/account/subpages/ShippingAddress */ "./resources/js/components/account/subpages/ShippingAddress.vue");
 /* harmony import */ var _components_account_subpages_BillingAddress__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/account/subpages/BillingAddress */ "./resources/js/components/account/subpages/BillingAddress.vue");
-/* harmony import */ var _components_store_Index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/store/Index */ "./resources/js/components/store/Index.vue");
+/* harmony import */ var _components_store_Index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/store/Index */ "./resources/js/components/store/Index.vue");
 /* harmony import */ var _components_account_subpages_Orders__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/account/subpages/Orders */ "./resources/js/components/account/subpages/Orders.vue");
 /* harmony import */ var _components_Admin__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Admin */ "./resources/js/components/Admin.vue");
 /* harmony import */ var _components_store_subpages_Products__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/store/subpages/Products */ "./resources/js/components/store/subpages/Products.vue");
@@ -54996,7 +55457,7 @@ var routes = [{
   }]
 }, {
   path: '/store',
-  component: _components_store_Index__WEBPACK_IMPORTED_MODULE_14__["default"],
+  component: _components_store_Index__WEBPACK_IMPORTED_MODULE_9__["default"],
   children: [{
     path: 'products',
     component: _components_store_subpages_Products__WEBPACK_IMPORTED_MODULE_12__["default"],

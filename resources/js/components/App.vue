@@ -55,6 +55,18 @@
                 province: '',
                 postal_code: '',
                 country: '',
+                shipment_address1: '',
+                shipment_address2: '',
+                shipment_city: '',
+                shipment_province: '',
+                shipment_postal_code: '',
+                shipment_country: '',
+                billing_address1: '',
+                billing_address2: '',
+                billing_city: '',
+                billing_province: '',
+                billing_postal_code: '',
+                billing_country: '',
                 role: '',
 
             }
@@ -81,6 +93,21 @@
                     this.province = response.data.address.province;
                     this.postal_code = response.data.address.postal_code;
                     this.country = response.data.address.country;
+
+                    this.shipment_address1 = response.data.address.shipment_address.address_1;
+                    this.shipment_address2 = response.data.address.shipment_address.address_2;
+                    this.shipment_city = response.data.address.shipment_address.city;
+                    this.shipment_province = response.data.address.shipment_address.province;
+                    this.shipment_postal_code = response.data.address.shipment_address.postal_code;
+                    this.shipment_country = response.data.address.shipment_address.country;
+
+                    this.billing_address1 = response.data.address.billing_address.address_1;
+                    this.billing_address2 = response.data.address.billing_address.address_2;
+                    this.billing_city = response.data.address.billing_address.city;
+                    this.billing_province = response.data.address.billing_address.province;
+                    this.billing_postal_code = response.data.address.billing_address.postal_code;
+                    this.billing_country = response.data.address.billing_address.country;
+
                     authUser.role = response.data.roles[0].name;
                     authUser.authenticated = response.data.authenticated;
                     window.localStorage.setItem('nsUser', JSON.stringify(authUser));

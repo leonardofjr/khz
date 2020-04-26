@@ -15,6 +15,8 @@ class CreateBillingAddressesTable extends Migration
     {
         Schema::create('billing_addresses', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('address_id')->nullable();
+            $table->foreign('address_id')->references('id')->on('billing_addresses');
             $table->string('address_1');
             $table->string('address_2');
             $table->string('city');

@@ -32,9 +32,6 @@ class StudiosTableSeeder extends Seeder
         $studio->user()->associate($miguel);
         $studio->save();
 
-        $miguel->studio_id = $studio->id;
-        $miguel->save();
-        
         $studio->testStudioDatabase();
 
         }

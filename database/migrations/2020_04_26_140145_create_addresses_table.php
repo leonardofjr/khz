@@ -22,10 +22,6 @@ class CreateAddressesTable extends Migration
             $table->string('country');
             $table->string('postal_code');
             $table->string('province');
-            $table->string('billing_address_id');
-            $table->foreign('billing_address_id')->references('id')->on('billing_addresses');
-            $table->string('shipment_addresses');
-            $table->foreign('shipment_addresses')->references('id')->on('shipping_addresses');
             $table->timestamps();
         });
     }

@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use App\User;
 use App\Role;
 use App\Address;
+use App\ShipmentAddress;
+use App\BillingAddress;
 use App\Studio;
 use App\Geopoint;
 use Faker\Factory as Faker;
@@ -54,10 +56,8 @@ class UsersTableSeeder extends Seeder
             'postal_code' => 'L6C 2M1',
             'province' => 'ONtario',
             'country' => 'Canada',
-            'billing_address_id' => 1,
-            'shipping_address_id' => 1,
-            'country' => 'Canada',
         ];
+
 
 
         $admin->roles()->attach($adminRole);
@@ -65,11 +65,24 @@ class UsersTableSeeder extends Seeder
         $user->roles()->attach($userRole);
 
         $address = Address::create($address_data);
+        $shipment_address = ShipmentAddress::create($address_data);
+
 
         $miguel = User::where('email', 'miguel@webmaster.com')->first();
 
         $address->user()->associate($miguel);
         $address->save();
+
+
+        $first_address = Address::where('user_id', 2)->first();
+
+        $shipment_address->address()->associate($first_address);
+        $shipment_address->save();
+
+        $billing_address = BillingAddress::create($address_data);
+
+        $billing_address->address()->associate($first_address);
+        $billing_address->save();
      
 
         $user->testDatabase();
