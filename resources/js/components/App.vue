@@ -61,7 +61,6 @@
                 axios
                 .get(url)
                 .then(response => {
-                    console.log(response);
                     this.firstName = response.data.fname;
                     this.lname = response.data.lname;
                     this.email = response.data.email;

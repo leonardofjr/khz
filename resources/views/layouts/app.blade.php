@@ -186,7 +186,6 @@
 
     function createPaneElements() {
         users.then(data => {
-            console.log(data);
             let pane = $('.section_result_content');
             data.forEach((item) => {
                 sectionResultContent = '<div class"section_result_details_container>'

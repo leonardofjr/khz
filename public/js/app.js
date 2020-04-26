@@ -2028,7 +2028,6 @@ __webpack_require__.r(__webpack_exports__);
       var url = 'http://localhost:8000/user';
       var authUser = {};
       axios.get(url).then(function (response) {
-        console.log(response);
         _this.firstName = response.data.fname;
         _this.lname = response.data.lname;
         _this.email = response.data.email;
@@ -2133,6 +2132,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2148,11 +2154,18 @@ __webpack_require__.r(__webpack_exports__);
       method: 'get',
       url: '/user_cpanel/product/cats'
     }).then(function (response) {
+      console.log(response);
       _this.product_cats = response.data;
     });
   },
   methods: {
     submit: function submit() {
+      var _this2 = this;
+
+      var selected_cats = [];
+      $.each($('input[name="cats[]"]:checked'), function (e) {
+        selected_cats.push($(this).val());
+      });
       axios({
         method: 'post',
         url: '/user_cpanel/product/store',
@@ -2165,16 +2178,14 @@ __webpack_require__.r(__webpack_exports__);
           sku: $('input[name="productSku"]').val(),
           stockStatus: $('select[name="productStockStatus"]').val(),
           details: $('input[name="productDetails"]').val(),
-          cats: $('input[name="cats[]"]:checked').each(function () {
-            return $(this).val()._value;
-          }),
+          cats: selected_cats,
           tags: $('input[name="tags"]').val(),
           price: $('input[name="productPrice"]').val(),
           featured: $('input[name="featured"]').val(),
           description: CKEDITOR.instances.productDescription.getData()
         }
       }).then(function (response) {
-        console.log(response);
+        _this2.$router.back();
       });
     }
   }
@@ -2227,9 +2238,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      product_cats: undefined,
       products: undefined,
       _token: this._token = $('meta[name="csrf-token"').attr('content')
     };
@@ -38412,6 +38428,8 @@ var render = function() {
     _vm._v(" "),
     _vm._m(0),
     _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "form-group row" },
@@ -38489,7 +38507,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(1),
+    _vm._m(2),
     _vm._v(" "),
     _c("div", { staticClass: "form-group row" }, [
       _c(
@@ -38532,7 +38550,7 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(2),
+    _vm._m(3),
     _vm._v(" "),
     _c(
       "button",
@@ -38564,28 +38582,58 @@ var staticRenderFns = [
         [_vm._v("Stock Status")]
       ),
       _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c(
+          "select",
+          {
+            staticClass: "form-control",
+            attrs: {
+              id: "productStockStatus",
+              name: "productStockStatus",
+              required: "",
+              autocomplete: "productStockStatus",
+              autofocus: ""
+            }
+          },
+          [
+            _c("option", { attrs: { selected: "" } }, [_vm._v("Choose...")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "in_stock" } }, [
+              _vm._v("In Stock")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "out_of_stock" } }, [
+              _vm._v("Out of Stock")
+            ])
+          ]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
       _c(
-        "select",
+        "label",
         {
-          staticClass: "form-control",
-          attrs: {
-            id: "productStockStatus",
-            name: "productStockStatus",
-            required: "",
-            autocomplete: "productStockStatus",
-            autofocus: ""
-          }
+          staticClass: "col-md-3 col-form-label",
+          attrs: { for: "exampleFormControlFile1" }
         },
-        [
-          _c("option", { attrs: { selected: "" } }, [_vm._v("Choose...")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "in_stock" } }, [_vm._v("In Stock")]),
-          _vm._v(" "),
-          _c("option", { attrs: { value: "out_of_stock" } }, [
-            _vm._v("Out of Stock")
-          ])
-        ]
-      )
+        [_vm._v("Track Filename")]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-9" }, [
+        _c("input", {
+          staticClass: "form-control-file",
+          attrs: {
+            type: "file",
+            accept: ".mp3,audio/wav",
+            id: "exampleFormControlFile1"
+          }
+        })
+      ])
     ])
   },
   function() {
@@ -38682,7 +38730,21 @@ var render = function() {
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(product.price))]),
                   _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(product.categories))]),
+                  _c(
+                    "td",
+                    [
+                      _vm._l(product.product_cats, function(cat) {
+                        return [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(cat.name) +
+                              ",\n                    "
+                          )
+                        ]
+                      })
+                    ],
+                    2
+                  ),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(product.tags))])
                 ])

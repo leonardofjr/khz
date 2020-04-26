@@ -24,13 +24,20 @@
 
             <div class="form-group row">
             <label for="productStockStatus" class="col-md-3 col-form-label">Stock Status</label>
-            <select id="productStockStatus" name="productStockStatus" class="form-control"  required autocomplete="productStockStatus" autofocus>
-                <option selected>Choose...</option>
-                <option value="in_stock">In Stock</option>
-                <option value="out_of_stock">Out of Stock</option>
-            </select>
+                <div class="col-md-9">
+                    <select id="productStockStatus" name="productStockStatus" class="form-control"  required autocomplete="productStockStatus" autofocus>
+                        <option selected>Choose...</option>
+                        <option value="in_stock">In Stock</option>
+                        <option value="out_of_stock">Out of Stock</option>
+                    </select>
+                </div>
             </div>
-            
+            <div class="form-group row">
+                <label for="exampleFormControlFile1"  class="col-md-3 col-form-label">Track Filename</label>
+                <div class="col-md-9">
+                    <input type="file" accept=".mp3,audio/wav" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+            </div>
             <div class="form-group row">
                 <label class="form-check-label col-md-3">
                     Categories
@@ -88,15 +95,25 @@
         mounted() {
                     CKEDITOR.replace('productDescription');
 
-                    axios({
-                        method: 'get',
-                        url: '/user_cpanel/product/cats'
-                    }). then((response)=> {
-                        this.product_cats = response.data;
-                    })
+                    
+
+            
+            axios({
+                method: 'get',
+                url: '/user_cpanel/product/cats'
+            }). then((response)=> {
+                console.log(response);
+                this.product_cats = response.data;
+            })
+
         },
         methods: {
             submit() {
+                let selected_cats = []
+                $.each($('input[name="cats[]"]:checked'), function(e) {
+                                selected_cats.push($(this).val()) ;
+                })
+
                 axios({
                         method: 'post',
                         url : '/user_cpanel/product/store',
@@ -109,16 +126,14 @@
                             sku : $('input[name="productSku"]').val(), 
                             stockStatus : $('select[name="productStockStatus"]').val(), 
                             details : $('input[name="productDetails"]').val(), 
-                            cats : $('input[name="cats[]"]:checked').each(function() {
-                                return $(this).val()._value;
-                            }), 
+                            cats : selected_cats, 
                             tags : $('input[name="tags"]').val(), 
                             price : $('input[name="productPrice"]').val(), 
                             featured : $('input[name="featured"]').val(), 
                             description : CKEDITOR.instances.productDescription.getData(), 
                         }
                     }).then((response) => {
-                        console.log(response);
+                        this.$router.back()
                     })
             },
          }

@@ -24,7 +24,11 @@
                         <td>{{product.sku}}</td>
                         <td>{{product.stock_status}}</td>
                         <td>{{product.price}}</td>
-                        <td>{{product.categories}}</td>
+                        <td>
+                            <template v-for="cat in product.product_cats">
+                                {{cat.name}},
+                            </template>
+                        </td>
                         <td>{{product.tags}}</td>
                     </tr>
                 </template>
@@ -38,6 +42,7 @@
     export default {
         data() {
             return {
+                product_cats : undefined,
                 products: undefined,
                 _token: this._token = $('meta[name="csrf-token"').attr('content')
 
@@ -45,10 +50,10 @@
         },
         mounted() {
             this.getProducts();
+
         },
         methods: {
             getProducts() {
-   
                axios({
                         method: 'get',
                         url : '/user_cpanel/product',
