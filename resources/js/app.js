@@ -24,14 +24,15 @@ Vue.use(VueRouter)
 
 import App from './components/App'
 import Dashboard from './components/Dashboard'
-import Account from './components/Account'
-import Profile from './components/Profile'
-import ShippingAddress from './components/ShippingAddress'
-import BillingAddress from './components/BillingAddress'
-import Orders from './components/Orders'
+import Account from './components/account/Index'
+import Profile from './components/account/subpages/Profile'
+import ShippingAddress from './components/account/subpages/ShippingAddress'
+import BillingAddress from './components/account/subpages/BillingAddress'
+import Store from './components/store/Index'
+import Orders from './components/account/subpages/Orders'
 import Admin from './components/Admin'
-import Products from './components/Products'
-import Product from './components/Product'
+import Products from './components/store/subpages/Products'
+import Product from './components/store/subpages/Product'
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -49,9 +50,14 @@ const routes = [
             { path: 'billing-address', component: BillingAddress, }
         ] 
     },
+    { path: '/store', component: Store, 
+        children: [ 
+            { path: 'products', component: Products, meta: { requiresAuth: true, producerAuth: true}},
+            { path: 'product', component: Product}
+        ] 
+    },
     { path: '/users', component: Admin, meta: { requiresAuth: true, adminAuth: true} },
-    { path: '/products', component: Products, meta: { requiresAuth: true, producerAuth: true}},
-    { path: '/product', component: Product}
+
   ]
   
 const router = new VueRouter({

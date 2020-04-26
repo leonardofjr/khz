@@ -29,7 +29,7 @@
                                 </li>
                                 <li><router-link to="/store" exact>Store</router-link>
                                 <ul class="nav-items">
-                                    <li v-if="role == 'producer' || 'admin'"><router-link to="/products" exact>Products</router-link></li>
+                                    <li v-if="role == 'producer' || 'admin'"><router-link to="/store/products" exact>Products</router-link></li>
                                 </ul>
                                 </li>
                             </ul>
