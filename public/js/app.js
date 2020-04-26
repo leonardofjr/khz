@@ -40259,7 +40259,7 @@ var render = function() {
       _c("hr"),
       _vm._v(" "),
       _c("h3", { staticClass: "d-inline-block" }, [_vm._v("Products")]),
-      _c("router-link", { attrs: { to: "/product" } }, [
+      _c("router-link", { attrs: { to: "/store/product" } }, [
         _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Add New")])
       ]),
       _vm._v(" "),
