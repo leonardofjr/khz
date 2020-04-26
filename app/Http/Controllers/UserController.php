@@ -38,9 +38,7 @@ class UserController extends Controller
     public function index()
     {
         $user_id = Auth::id();
-        $user = User::findOrFail($user_id);
-        $user->roles->first();
-        $user->studio;
+        $user = User::with(['roles', 'address'])->where('id', $user_id)->first();
         $user['authenticated'] = Auth::check();
         return response()->json(
            $user

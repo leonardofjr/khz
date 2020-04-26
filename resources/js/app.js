@@ -23,7 +23,12 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import App from './components/App'
+import Dashboard from './components/Dashboard'
+import Account from './components/Account'
 import Profile from './components/Profile'
+import ShippingAddress from './components/ShippingAddress'
+import BillingAddress from './components/BillingAddress'
+import Orders from './components/Orders'
 import Admin from './components/Admin'
 import Products from './components/Products'
 import Product from './components/Product'
@@ -35,7 +40,15 @@ import Product from './components/Product'
  */
 
 const routes = [
-    { path: '/', component: Profile },
+    { path: '/', component: Dashboard },
+    { path: '/account', component: Account, 
+        children: [ 
+            { path: 'profile', component: Profile, },
+            { path: 'orders', component: Orders, },
+            { path: 'shipping-address', component: ShippingAddress, },
+            { path: 'billing-address', component: BillingAddress, }
+        ] 
+    },
     { path: '/users', component: Admin, meta: { requiresAuth: true, adminAuth: true} },
     { path: '/products', component: Products, meta: { requiresAuth: true, producerAuth: true}},
     { path: '/product', component: Product}

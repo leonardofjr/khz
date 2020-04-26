@@ -1,7 +1,7 @@
 <template>
         <div>
             <hr>
-            <h3>Add New Product</h3>
+            <h2>Add New Product</h2>
             <hr>
             <div class="form-group row">
                 <label for="productName" class="col-md-3 col-form-label">Product Name</label>

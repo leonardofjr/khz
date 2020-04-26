@@ -57,6 +57,10 @@ class User extends Authenticatable
             return $this->hasMany('App\Product');
         }
 
+        public function address() {
+            return $this->hasOne('App\Address', 'user_id');
+        }
+
 
         public function testDatabase()
         {

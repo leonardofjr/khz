@@ -2,7 +2,7 @@
         <div>
 
             <hr>
-            <h3 class="d-inline-block">Products</h3><router-link to="/product"> <button class="btn btn-primary" >Add New</button></router-link>
+            <h2 class="d-inline-block">Products</h2><router-link to="/product"> <button class="btn btn-primary" >Add New</button></router-link>
             <hr>
             <table class="table">
             <thead>

@@ -17,9 +17,21 @@
                                     <!-- use router-link component for navigation. -->
                                     <!-- specify the link by passing the `to` prop. -->
                                     <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
-                                <li><router-link to="/" exact>Profile</router-link></li>
+                                <li><router-link to="/" exact>Dashboard</router-link></li>
                                 <li v-if="role == 'admin'"><router-link to="/users" exact>Users</router-link></li>
-                                <li v-if="role == 'producer'"><router-link to="/products" exact>Products</router-link></li>
+                                <li><router-link to="/account" exact>Account</router-link>
+                                <ul class="nav-items">
+                                    <li><router-link exact to="/account/profile">Profile</router-link></li>
+                                    <li><router-link exact to="/account/orders">Orders</router-link></li>
+                                    <li><router-link exact to="/account/shipping-address">Shipping Address</router-link></li>
+                                    <li><router-link exact to="/account/billing-address">Billing Address</router-link></li>
+                                </ul>
+                                </li>
+                                <li><router-link to="/store" exact>Store</router-link>
+                                <ul class="nav-items">
+                                    <li v-if="role == 'producer' || 'admin'"><router-link to="/products" exact>Products</router-link></li>
+                                </ul>
+                                </li>
                             </ul>
                         </nav>
                     </aside>
@@ -36,17 +48,14 @@
                 firstName: '',
                 lastName: '',
                 email: '',
-                phone: '',
                 studioName: '',
-                streetAddress: '',
+                address1: '',
+                address2: '',
+                city: '',
+                province: '',
+                postal_code: '',
+                country: '',
                 role: '',
-                studioServices: [
-                    'recording'
-                ],
-                studioServicePrice: [
-                    
-                ],
-
 
             }
         },
@@ -61,13 +70,17 @@
                 axios
                 .get(url)
                 .then(response => {
+                    console.log(response);
                     this.firstName = response.data.fname;
                     this.lname = response.data.lname;
                     this.email = response.data.email;
                     this.role = response.data.roles[0].name;
-                    this.studioName = response.data.studio.name;
-                    this.streetAddress = response.data.studio.address;
-                    this.phone = response.data.studio.phone;
+                    this.address1 = response.data.address.address_1;
+                    this.address2 = response.data.address.address_2;
+                    this.city = response.data.address.city;
+                    this.province = response.data.address.province;
+                    this.postal_code = response.data.address.postal_code;
+                    this.country = response.data.address.country;
                     authUser.role = response.data.roles[0].name;
                     authUser.authenticated = response.data.authenticated;
                     window.localStorage.setItem('nsUser', JSON.stringify(authUser));
