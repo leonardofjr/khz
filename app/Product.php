@@ -15,6 +15,10 @@ class Product extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
+    public function order_details() {
+        return $this->hasMany('App\OrderDetails', 'product_id');
+    }
+
     public function product_cats() {
         return $this->belongsToMany('App\ProductCat', 'cat_product');
     }

@@ -1,4 +1,5 @@
 <template>
+
             <div class="row">
                     <aside class="col-12 col-lg-3">
                         <nav class=" navbar-dark ">
@@ -84,7 +85,7 @@
                 .then(response => {
                     console.log(response);
                     this.firstName = response.data.fname;
-                    this.lname = response.data.lname;
+                    this.lastName = response.data.lname;
                     this.email = response.data.email;
                     this.role = response.data.roles[0].name;
                     this.address1 = response.data.address.address_1;

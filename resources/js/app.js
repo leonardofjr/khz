@@ -29,7 +29,8 @@ import Profile from './components/account/subpages/Profile'
 import ShippingAddress from './components/account/subpages/ShippingAddress'
 import BillingAddress from './components/account/subpages/BillingAddress'
 import Store from './components/store/Index'
-import Orders from './components/account/subpages/Orders'
+import Orders from './components/account/subpages/orders/index'
+import OrderDetails from './components/account/subpages/orders/order_details/index'
 import Admin from './components/Admin'
 import Products from './components/store/subpages/Products'
 import Product from './components/store/subpages/Product'
@@ -46,6 +47,7 @@ const routes = [
         children: [ 
             { path: 'profile', component: Profile, },
             { path: 'orders', component: Orders, },
+            { path: 'orders/:id', component: OrderDetails, props: true},
             { path: 'shipping-address', component: ShippingAddress, },
             { path: 'billing-address', component: BillingAddress, }
         ] 

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\OrderDetails;
 use App\Geopoint;
+use App\Product;
 use Illuminate\Support\Facades\Auth;
 use Session;
 
@@ -43,6 +45,16 @@ class UserController extends Controller
         return response()->json(
            $user
         );
+    }
+
+    public function products() {
+        $order_details = Product::where('user_id', 2)->paginate(2);
+        return response()->json($order_details);
+    }
+
+    public function order_details($id) {
+        $order_details = OrderDetails::with(['product', 'order', 'order.user', 'order.shipment_address'])->where('id', $id)->first();
+        return response()->json($order_details);
     }
 
     /**

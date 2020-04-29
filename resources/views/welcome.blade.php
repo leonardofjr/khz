@@ -6,7 +6,7 @@
                     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                         <div class="container">
                             <a class="navbar-brand" href="{{ url('/') }}">
-                                {{ config('app.name', 'NEIGHBOURHOOD STUDIO') }}
+                                {{ config('app.name', 'No Name') }}
                             </a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                                 <span class="navbar-toggler-icon"></span>
@@ -62,7 +62,7 @@
                 <div class="flex-center position-ref full-height">
                     <div class="content">
                         <div class="title m-b-md">
-                            {{env('APP_NAME')}}
+                            {{env('APP_NAME', 'NO NAME')}}
                         </div>
                         <div class="links">
                                 <a href="{{ route('login') }}">Login</a>

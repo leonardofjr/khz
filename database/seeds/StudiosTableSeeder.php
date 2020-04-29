@@ -14,7 +14,7 @@ class StudiosTableSeeder extends Seeder
     {
 
         Studio::truncate();
-        $miguel = User::where('email', 'miguel@webmaster.com')->first();
+        $miguel = User::where('email', 'fernando@webmaster.com')->first();
 
         $data = [
             'name' => 'Young Savage Studio',
